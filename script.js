@@ -14,7 +14,13 @@ fetch('https://www.course-api.com/javascript-store-products')
     .then(products => {
         displayProducts(products);
     })
-    .catch()
+
+    // Task 4: Handle Errors Gracefully
+    
+    .catch(
+    error => {    
+        console.error("There was a problem with the fetch operation:', error", error); 
+    });
 
     // Task 3: Display Product Details Dynamically
 function displayProducts(products) {

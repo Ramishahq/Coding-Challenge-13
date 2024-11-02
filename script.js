@@ -5,6 +5,7 @@ const productContainer = document.getElementById("product-container");
 // Fetching data from the API
 
 fetch('https://www.course-api.com/javascript-store-products') 
+
     .then(response => {
         if (!response.ok) {
             throw new Error("No response");
@@ -34,7 +35,7 @@ function displayProducts(products) {
 
         productElement.innerHTML = `
             <img src="${image}" alt="${name}" class="product-image" />
-            <h3 class="product-name">${name}</h3>
+            <p class="product-name">${name}</p>
             <p class="product-company">by ${company}</p>
             <p class="product-price">$${productPrice}</p>
         `;

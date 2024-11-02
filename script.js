@@ -15,3 +15,24 @@ fetch('https://www.course-api.com/javascript-store-products')
         displayProducts(products);
     })
     .catch()
+
+    // Task 3: Display Product Details Dynamically
+function displayProducts(products) {
+    products.forEach(product => {
+        const { name, company, price } = product.fields;
+        const image = product.fields.image[0].url;
+        const productPrice = (price / 100).toFixed(2);
+
+        const productElement = document.createElement("div");
+        productElement.classList.add("product");
+
+        productElement.innerHTML = `
+            <img src="${image}" alt="${name}" class="product-image" />
+            <h3 class="product-name">${name}</h3>
+            <p class="product-company">by ${company}</p>
+            <p class="product-price">$${productPrice}</p>
+        `;
+
+        productContainer.appendChild(productElement);
+    });
+}

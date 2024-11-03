@@ -1,45 +1,37 @@
-//Task 2
-// Task 2: Fetch Products from the API Using Fetch and Promises
-const productContainer = document.getElementById("product-container");
+// Task 1 Fetch Products from the API Using Fetch and Promises
 
-// Fetching data from the API
+fetch('https://www.course-api.com/javascript-store-products')
+.then(response => response.json())
+.then(data => displayProducts(data))
 
-fetch('https://www.course-api.com/javascript-store-products') 
+//Task 4 Handle Errors Gracefully
+.catch(error => {
+    console.error("Error fetching data:", error);
+    displayError('Failed to load products. Please try again later.');
+});
+// Task 3 Display Product Details Dynamically
 
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("No response");
-        }
-        return response.json();
-    })
-    .then(products => {
-        displayProducts(products);
-    })
-
-    // Task 4: Handle Errors Gracefully
-    
-    .catch(
-    error => {    
-        console.error("There was a problem with the fetch operation:', error", error); 
-    });
-
-    // Task 3: Display Product Details Dynamically
 function displayProducts(products) {
-    products.forEach(product => {
-        const { name, company, price } = product.fields;
-        const image = product.fields.image[0].url;
-        const productPrice = (price / 100).toFixed(2);
-
-        const productElement = document.createElement("div");
-        productElement.classList.add("product");
-
-        productElement.innerHTML = `
-            <img src="${image}" alt="${name}" class="product-image" />
-            <p class="product-name">${name}</p>
-            <p class="product-company">by ${company}</p>
-            <p class="product-price">$${productPrice}</p>
-        `;
-
-        productContainer.appendChild(productElement);
-    });
+const productContainer = document.getElementById('product-container');
+products.forEach(product => displayProduct(product, productContainer));
 }
+
+function displayProduct(product, container) {
+const { name, company, price } = product.fields;
+const image = product.fields.image[0].url;
+const productPrice = (price / 100).toFixed(2);
+
+const productElement = document.createElement('div');
+productElement.classList.add('product');
+
+// Using innerHTML 
+productElement.innerHTML = `
+    <img src="${image}" alt="${name}">
+    <h3>${name}</h3>
+    <p>Company: ${company}</p>
+    <p>Price: $${productPrice}</p>
+`;
+
+container.appendChild(productElement);
+}
+
